@@ -11,7 +11,10 @@ async function bootstrap() {
   app.useStaticAssets(join(__dirname, '..', 'uploads'), { prefix: '/uploads/' }); // Sert les fichiers
 
   app.enableCors({
-    origin: 'http://localhost:4200', // ✅ Autoriser uniquement le frontend Angular
+     origin: [
+    'http://localhost:4200',  // Dev local
+    'https://022b347150e8.ngrok-free.app ' // Autoriser tous les sous-domaines Ngrok
+  ], // Autoriser tous les sous-domaines Ngrok // ✅ Autoriser uniquement le frontend Angular
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Content-Type,Authorization',
     credentials: true, // ✅ Si besoin d'authentification (JWT, Cookies)

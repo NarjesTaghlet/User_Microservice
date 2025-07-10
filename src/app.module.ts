@@ -26,11 +26,11 @@ dotenv.config();
         return {
           type: 'mysql',
     //host: 'localhost',
-    host : process.env.DB_HOST,
-    port: 3307,
-    username: 'root',
-    password: '',
-    database: 'auth_db',
+    host :configService.get<string>('DB_HOST'),
+    port: configService.get<number>('DB_PORT'),
+    username: configService.get<string>('DB_USERNAME'),
+    password: configService.get<string>('DB_PASSWORD'),
+    database: configService.get<string>('DB_NAME'),
     entities: [User,Subscription],
     synchronize: true,
   
@@ -47,7 +47,11 @@ dotenv.config();
   providers: [AppService], 
 })
 export class AppModule {
-  constructor(configService: ConfigService) {
-    console.log('SECRET_KEY in AppModule:', configService.get('SECRET_KEY')); // Debug
+  constructor(private readonly configService: ConfigService) {
+  console.log('SECRET_KEY in AppModule:', configService.get('SECRET_KEY')); // Debug
+   console.log(' in AppModule:', configService.get('DB_PORT')); // Debug
+      console.log(' client id google', configService.get<string>('GOOGLE_CLIENT_ID'));
+    console.log(this.configService.get<string>('BILLING_SERVICE_URL'))
+    console.log(process.env.AWS_SECRET_ACCESS_KEY)
   }
 }

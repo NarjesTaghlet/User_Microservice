@@ -58,9 +58,9 @@ import { UserService } from '../user.service';
 export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
   constructor(private configService: ConfigService, private userService: UserService) {
     super({
-      clientID: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_SECRET_ID, // Should be GITHUB_CLIENT_SECRET
-      callbackURL: 'http://localhost:3030/auth/github/callback',
+      clientID: configService.get<string>('GITHUB_CLIENT_ID'),
+      clientSecret: configService.get<string>('GITHUB_SECRET_ID'),
+      callbackURL: `${configService.get('USER_SERVICE_URL')}/auth/github/callback`,
       scope: ['user:email', 'repo', 'admin:repo_hook'],
       passReqToCallback: true,
     });

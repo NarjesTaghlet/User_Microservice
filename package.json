@@ -66,7 +66,7 @@
     "balanced-match": "^1.0.2",
     "base64-js": "^1.5.1",
     "base64url": "^3.0.1",
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.2",
     "bignumber.js": "^9.0.0",
     "binary-extensions": "^2.3.0",
     "bl": "^4.1.0",
@@ -734,6 +734,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@nestjs/cli": "^10.4.9",
     "@types/multer": "^1.4.12",
     "@types/nodemailer": "^6.4.17"
   }

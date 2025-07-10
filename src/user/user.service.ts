@@ -5,7 +5,7 @@ import { LoginCredentialsDto } from './dto/login-credentials.dto';
 import { Repository} from "typeorm";
 import { User } from './entities/user.entity';
 import {InjectRepository} from "@nestjs/typeorm";
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import logger from 'src/utils/logger';
 import {Role_userEnum} from "../enums/role_user.enum";
 import {JwtService} from "@nestjs/jwt";
@@ -28,6 +28,7 @@ import { MailService } from 'src/mail/mail.service';
 import { Not } from 'typeorm';
 import * as dotenv from 'dotenv' ;
 import * as crypto from 'crypto';
+import { ConfigService } from '@nestjs/config';
 
 dotenv.config();
 
@@ -46,6 +47,7 @@ constructor(
    private jwtService : JwtService,
    private readonly httpService: HttpService,
        private readonly mailService: MailService,
+       private readonly configservice : ConfigService
 
 )
 {
@@ -282,7 +284,7 @@ const emailSent = await this.mailService.queueVerificationEmail(user.id, user.em
     };
 
     // Signer le JWT avec le payload et une expiration de 1 heure
-    const jwt = await this.jwtService.sign(payload, { expiresIn: '3600s' });
+    const jwt = await this.jwtService.sign(payload, { expiresIn: '7200s' });
     //const awsCredentials = await this.connectToAwsAccount(utilisateur.id);
     // Retourner le token JWT
     return {
@@ -440,7 +442,8 @@ const emailSent = await this.mailService.queueVerificationEmail(user.id, user.em
       ...userData,
       salt,
       password: userData.password ? await bcrypt.hash(userData.password, salt) : '',
-      role: 'ABONNEE',
+     // role: 'ABONNEE',
+      role : Role_userEnum.ABONNEE // Or 'visiteur'
     });
     const savedUser = await this.UserRepository.save(user);
     console.log('Created user:', savedUser);
@@ -771,8 +774,10 @@ const emailSent = await this.mailService.queueVerificationEmail(user.id, user.em
       try {
         // Perform the payment processing
         const paymentResponse = await lastValueFrom(
-          this.httpService.post(`${process.env.BILLING_SERVICE_URL}/billing/checkout/${userId}`, { plan: body.plan }),
+          this.httpService.post(`${this.configservice.get<string>('BILLING_SERVICE_URL')}/billing/checkout/${userId}`, { plan: body.plan }),
         );
+
+
     
         if (!paymentResponse.data.success) {
           throw new HttpException('Payment failed', HttpStatus.BAD_REQUEST);
@@ -782,7 +787,7 @@ const emailSent = await this.mailService.queueVerificationEmail(user.id, user.em
         let awsResponse;
         try {
           awsResponse = await lastValueFrom(
-            this.httpService.post(`${process.env.AWS_SERVICE_URL}/aws/create-sub-account`, {
+            this.httpService.post(`${this.configservice.get<string>('AWS_SERVICE_URL')}/aws/create-sub-account`, {
               userId: user.id,
               subscriptionPlan: body.plan,
               email: user.email,

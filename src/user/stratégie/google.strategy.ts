@@ -12,9 +12,11 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     private userService: UserService,
   ) {
     super({
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_SECRET_ID,
-      callbackURL: 'http://localhost:3030/auth/google/callback', // Mettra à jour avec ngrok
+    //  clientID: process.env.GOOGLE_CLIENT_ID,
+     // clientSecret: process.env.GOOGLE_SECRET_ID,
+      clientID :configService.get<string>('GOOGLE_CLIENT_ID'),
+      clientSecret :  configService.get<string>('GOOGLE_SECRET_ID'),
+      callbackURL: `${configService.get('USER_SERVICE_URL')}/auth/google/callback`, // Mettra à jour avec ngrok
       scope: ['email', 'profile'],
       prompt: 'select_account',
     });
@@ -29,6 +31,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     if (!profile.emails || !profile.emails.length) {
       return done(new Error('No email provided'), null);
     }
+
 
     const email = profile.emails[0].value;
     let user = await this.userService.findByEmail(email);
