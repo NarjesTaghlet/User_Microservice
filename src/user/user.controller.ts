@@ -10,11 +10,9 @@ import { UpdateSubscriptionDto } from './dto/update-subscription.dto';
 import { PricingPlanEnum } from 'src/enums/PricingPlan.enum';
 import logger from 'src/utils/logger';
 import { MessagePattern } from '@nestjs/microservices';
-import { Query } from '@nestjs/common';
 import { VerifyCodeDto } from './dto/verify-code.dto';
 import { ResendCodeDto } from './dto/resend-code.dto';
 import * as dotenv from 'dotenv' ;
-import * as crypto from 'crypto';
 
 dotenv.config();
 
@@ -222,7 +220,7 @@ export class UserController {
   async updateProfile(
     @Request() req,
     @Body() updateDto: RegisterUserDto,
-    @UploadedFile() file?: Express.Multer.File, // Type reconnu après installation
+@UploadedFile() file?: any
   ) {
     console.log('Update DTO:', updateDto);
     console.log('Uploaded file:', file);
