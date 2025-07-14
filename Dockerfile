@@ -5,6 +5,12 @@ WORKDIR /app
 
 COPY package*.json ./
 
+RUN npm install --legacy-peer-deps \
+    && npm install --save-dev @types/express
+
+
+
+
 # Ajoute les dépendances nécessaires à la compilation native
 RUN apk add --no-cache python3 make g++ \
     && npm install --production --legacy-peer-deps \
