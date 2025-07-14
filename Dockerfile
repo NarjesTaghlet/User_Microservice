@@ -5,6 +5,9 @@ WORKDIR /app
 
 COPY package*.json ./
 
+RUN npm install -g @nestjs/cli --legacy-peer-deps
+
+
 # Ajoute les dépendances nécessaires à la compilation native
 RUN apk add --no-cache python3 make g++ \
     && npm install --production --legacy-peer-deps \
