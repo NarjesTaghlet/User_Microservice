@@ -2,8 +2,6 @@ name: Build and Push Docker Image
 
 on:
   push:
-    branches: [main]  # ou "master" selon ton repo
-  pull_request:
     branches: [main]
 
 jobs:
@@ -17,13 +15,14 @@ jobs:
       - name: Log in to DockerHub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set DockerHub username
+        run: echo "USERNAME=${{ secrets.DOCKERHUB_USERNAME }}" >> $GITHUB_ENV
 
       - name: Build Docker image
-        run: |
-          docker build -t $username/user-service:latest .
+        run: docker build -t $USERNAME/user-service:latest .
 
       - name: Push image to DockerHub
-        run: |
-          docker push $username/user-service:latest
+        run: docker push $USERNAME/user-service:latest
