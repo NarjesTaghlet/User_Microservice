@@ -33,6 +33,9 @@ dotenv.config();
     database: configService.get<string>('DB_NAME'),
     entities: [User,Subscription],
     synchronize: true,
+    extra: {
+    authPlugin: 'mysql_native_password'  // Add this line
+  }
   
         };
       },
