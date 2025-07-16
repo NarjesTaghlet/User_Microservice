@@ -7,11 +7,15 @@ import { HttpService } from '@nestjs/axios';
 import { JwtAuthGuard } from './Guards/jwt-authguard';
 import { JwtService } from '@nestjs/jwt';
 import { HttpStatusCode } from 'axios';
+import { getEnvironmentData } from 'worker_threads';
+import { ConfigService } from '@nestjs/config';
 
 
 @Controller('auth')
 export class AuthController {
-  constructor(private userService: UserService, private httpService : HttpService,private readonly jwtService: JwtService) {}
+  constructor(private userService: UserService, private httpService : HttpService,private readonly jwtService: JwtService,
+    private readonly configService : ConfigService
+  ) {}
 
   @Get('google')
   @UseGuards(AuthGuard('google'))
@@ -26,7 +30,10 @@ export class AuthController {
   async googleAuthRedirect(@Request() req, @Res() res: Response) {
     const user = req.user;
     const token = await this.userService.generateJwt(user);
-    res.redirect(`http://localhost:4200/callback?access_token=${token}`);
+   // const userServiceUrl = 
+    const appServiceUrl = this.configService.get<string>('APP_URL', 'http://localhost:4200');
+
+    res.redirect(`${appServiceUrl}/callback?access_token=${token}`);
   }
 
   @Get('github')
@@ -51,7 +58,9 @@ export class AuthController {
   async githubAuthRedirect(@Request() req, @Res() res: Response) {
     const user = req.user;
     const token = await this.userService.generateJwt(user);
-    res.redirect(`https://d398rqqt4ze3my.cloudfront.net/callback?access_token=${token}`);
+    const appServiceUrl = this.configService.get<string>('APP_URL', 'http://localhost:4200');
+
+    res.redirect(`${appServiceUrl}/callback?access_token=${token}`);
     return {
       message: 'GitHub authentication successful',
       access_token: user.accessToken,
