@@ -51,7 +51,7 @@ export class AuthController {
   async githubAuthRedirect(@Request() req, @Res() res: Response) {
     const user = req.user;
     const token = await this.userService.generateJwt(user);
-    res.redirect(`http://localhost:4200/callback?access_token=${token}`);
+    res.redirect(`https://d398rqqt4ze3my.cloudfront.net/callback?access_token=${token}`);
     return {
       message: 'GitHub authentication successful',
       access_token: user.accessToken,
