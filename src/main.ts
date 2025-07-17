@@ -14,7 +14,8 @@ async function bootstrap() {
      origin: [
     'http://localhost:4200',  // Dev local
     'https://022b347150e8.ngrok-free.app ',
-    'https://d398rqqt4ze3my.cloudfront.net' // Autoriser tous les sous-domaines Ngrok
+    'https://d398rqqt4ze3my.cloudfront.net',
+    'https://*.cloudfront.net' // Autoriser tous les sous-domaines Ngrok
   ], // Autoriser tous les sous-domaines Ngrok // ✅ Autoriser uniquement le frontend Angular
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Content-Type,Authorization',

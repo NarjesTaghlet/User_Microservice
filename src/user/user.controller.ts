@@ -189,18 +189,13 @@ export class UserController {
 
 
 
-
+  @UseGuards(JwtAuthGuard)
   @Get('')
   findAll() {
     return this.userService.findAll();
   }
 
   
-
-
-
-  
-
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: LoginCredentialsDto) {
