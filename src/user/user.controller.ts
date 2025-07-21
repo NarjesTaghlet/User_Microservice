@@ -13,6 +13,7 @@ import { MessagePattern } from '@nestjs/microservices';
 import { VerifyCodeDto } from './dto/verify-code.dto';
 import { ResendCodeDto } from './dto/resend-code.dto';
 import * as dotenv from 'dotenv' ;
+import { RoleGuard } from './Guards/role-basedguard';
 
 dotenv.config();
 
@@ -187,15 +188,12 @@ export class UserController {
     return this.userService.restoreuser(id);
   }
 
+@UseGuards(JwtAuthGuard)
+@Get('')
+findAll() {
+  return this.userService.findAll();
+}
 
-
-  @UseGuards(JwtAuthGuard)
-  @Get('')
-  findAll() {
-    return this.userService.findAll();
-  }
-
-  
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: LoginCredentialsDto) {
