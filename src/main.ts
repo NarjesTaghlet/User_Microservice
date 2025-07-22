@@ -18,7 +18,7 @@ async function bootstrap() {
     'https://d1fzvnuiitxff2.cloudfront.net'
 
   ], // Autoriser tous les sous-domaines Ngrok // ✅ Autoriser uniquement le frontend Angular
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: 'Content-Type,Authorization',
     credentials: true, // ✅ Si besoin d'authentification (JWT, Cookies)
   });
