@@ -15,7 +15,7 @@ async function bootstrap() {
     'http://localhost:4200',  // Dev local
     'https://022b347150e8.ngrok-free.app ',
     'https://*.cloudfront.net', // Autoriser tous les sous-domaines Ngrok,
-    'https://d1fzvnuiitxff2.cloudfront.net',
+    'https://d2k1rrgcfjq38f.cloudfront.net',
    ' https://dpfzuq7w5fb82.cloudfront.net'
 
   ], // Autoriser tous les sous-domaines Ngrok // ✅ Autoriser uniquement le frontend Angular
@@ -28,7 +28,7 @@ async function bootstrap() {
 const corsMiddleware = (req, res, next) => {
   const allowedOrigins = [
     'https://dpfzuq7w5fb82.cloudfront.net',
-    'https://*.cloudfront.net',
+    'https://d2k1rrgcfjq38f.cloudfront.net',
     'http://localhost:3030' // For local development
   ];
   
