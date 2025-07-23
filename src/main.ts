@@ -28,6 +28,7 @@ async function bootstrap() {
 const corsMiddleware = (req, res, next) => {
   const allowedOrigins = [
     'https://dpfzuq7w5fb82.cloudfront.net',
+    'https://*.cloudfront.net',
     'http://localhost:3030' // For local development
   ];
   
