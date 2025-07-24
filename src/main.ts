@@ -15,8 +15,9 @@ async function bootstrap() {
     'http://localhost:4200',  // Dev local
     'https://022b347150e8.ngrok-free.app ',
     'https://*.cloudfront.net', // Autoriser tous les sous-domaines Ngrok,
-    'https://d2k1rrgcfjq38f.cloudfront.net',
-   ' https://dpfzuq7w5fb82.cloudfront.net'
+    'https://d3lkl4tdwg9nb5.cloudfront.net',
+   ' https://dpfzuq7w5fb82.cloudfront.net',
+   'alb-myapp-299605994.us-east-1.elb.amazonaws.com'
 
   ], // Autoriser tous les sous-domaines Ngrok // ✅ Autoriser uniquement le frontend Angular
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
@@ -27,9 +28,11 @@ async function bootstrap() {
   // Express CORS Middleware
 const corsMiddleware = (req, res, next) => {
   const allowedOrigins = [
-    'https://dpfzuq7w5fb82.cloudfront.net',
+    'https://d3lkl4tdwg9nb5.cloudfront.net',
     'https://d2k1rrgcfjq38f.cloudfront.net',
-    'http://localhost:3030' // For local development
+    'https://d1no5jk0cuzn91.cloudfront.net',
+ 'alb-myapp-299605994.us-east-1.elb.amazonaws.com'
+
   ];
   
   const origin = req.headers.origin;
