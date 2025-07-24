@@ -17,7 +17,8 @@ async function bootstrap() {
     'https://*.cloudfront.net', // Autoriser tous les sous-domaines Ngrok,
     'https://d3lkl4tdwg9nb5.cloudfront.net',
    ' https://dpfzuq7w5fb82.cloudfront.net',
-   'alb-myapp-299605994.us-east-1.elb.amazonaws.com'
+   'alb-myapp-299605994.us-east-1.elb.amazonaws.com',
+   'http://angular-app-5a31b0ad.s3-website-us-east-1.amazonaws.com'
 
   ], // Autoriser tous les sous-domaines Ngrok // ✅ Autoriser uniquement le frontend Angular
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
@@ -31,7 +32,8 @@ const corsMiddleware = (req, res, next) => {
     'https://d3lkl4tdwg9nb5.cloudfront.net',
     'https://d2k1rrgcfjq38f.cloudfront.net',
     'https://d1no5jk0cuzn91.cloudfront.net',
- 'alb-myapp-299605994.us-east-1.elb.amazonaws.com'
+ 'alb-myapp-299605994.us-east-1.elb.amazonaws.com',
+  'http://angular-app-5a31b0ad.s3-website-us-east-1.amazonaws.com'
 
   ];
   
