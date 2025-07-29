@@ -13,7 +13,7 @@ async function bootstrap() {
   app.enableCors({
      origin: [
     'http://localhost:4200',  // Dev local
-    'https://d399hhf7pq6yc6.cloudfront.net',
+    'https://d1fsr28fh19wdy.cloudfront.net',
 
   ], // Autoriser tous les sous-domaines Ngrok // ✅ Autoriser uniquement le frontend Angular
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
@@ -24,7 +24,7 @@ async function bootstrap() {
   // Express CORS Middleware
 const corsMiddleware = (req, res, next) => {
   const allowedOrigins = [
-    'https://d399hhf7pq6yc6.cloudfront.net',
+    'https://d1fsr28fh19wdy.cloudfront.net',
   ];
   
   const origin = req.headers.origin;
