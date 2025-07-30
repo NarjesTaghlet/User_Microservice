@@ -284,8 +284,8 @@ const emailSent = await this.mailService.queueVerificationEmail(user.id, user.em
         role: utilisateur.role
     };
 
-    // Signer le JWT avec le payload et une expiration de 1 heure
-    const jwt = await this.jwtService.sign(payload, { expiresIn: '7200s' });
+    // Signer le JWT avec le payload et une expiration de 3 heure
+    const jwt = await this.jwtService.sign(payload, { expiresIn: '10800s' });
     //const awsCredentials = await this.connectToAwsAccount(utilisateur.id);
     // Retourner le token JWT
     return {
